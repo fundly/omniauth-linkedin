@@ -52,6 +52,7 @@ module OmniAuth
       def request_phase
         options.request_params ||= {}
         options.request_params[:scope] = options.scope.gsub("+", " ")
+        options.request_params[:state] = SecureRandom.base64.gsub(/[\/=+]/, '').slice(0..7).downcase
         super
       end
 
