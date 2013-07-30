@@ -4,6 +4,7 @@ module OmniAuth
   module Strategies
     class LinkedIn < OmniAuth::Strategies::OAuth
       option :name, "linkedin"
+      option :authorize_options, [:scope, :state]
 
       option :client_options, {
         :site => 'https://api.linkedin.com',
@@ -15,6 +16,7 @@ module OmniAuth
       option :fields, ["id", "email-address", "first-name", "last-name", "headline", "industry", "picture-url", "public-profile-url", "location"]
 
       option :scope, 'r_basicprofile r_emailaddress'
+      option :state, SecureRandom.base64.gsub(/[\/=+]/, '').slice(0..7).downcase
 
       uid{ raw_info['id'] }
 
